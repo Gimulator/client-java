@@ -9,18 +9,22 @@ public class CookieManager {
         return instance;
     }
 
+    private String cookie;
+
 
     private CookieManager(){
 
     }
 
     public void save(HttpURLConnection connection){
-
+        String cookie = connection.getHeaderField("Set-Cookie");
+        if (cookie!=null){
+            this.cookie = cookie;
+        }
     }
 
     public void load(HttpURLConnection connection){
-
+        connection.addRequestProperty("Cookie",cookie);
     }
-
 
 }

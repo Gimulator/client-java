@@ -51,6 +51,8 @@ public class HttpRequest {
                 jsonObject.put(entry.getKey(), entry.getValue().toString());
             }
 
+            CookieManager.getInstance().load(connection);
+
             connection.getOutputStream().write(jsonObject.toString().getBytes());
 
 
@@ -63,6 +65,8 @@ public class HttpRequest {
             }
 
             String response = readFromStream(in);
+
+            CookieManager.getInstance().save(connection);
 
 
             return Response.ok(connection.getResponseCode(),response);
