@@ -87,9 +87,7 @@ public class HttpRequest {
     }
 
     private void cleanUpHeaders() {
-        if (headers.containsKey("Content-type")){
-            headers.remove("Content-type");
-        }
+        headers.remove("Content-type");
         headers.put("Content-type","Application/json");
     }
 
