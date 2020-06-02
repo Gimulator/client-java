@@ -3,10 +3,10 @@ package api;
 import java.net.HttpURLConnection;
 
 public class CookieManager {
-    private static final ThreadLocal<CookieManager> instance = ThreadLocal.withInitial(CookieManager::new);
+    private static final CookieManager instance = new CookieManager();
 
     public static CookieManager getInstance() {
-        return instance.get();
+        return instance;
     }
 
 

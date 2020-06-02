@@ -1,9 +1,19 @@
 package api;
 
+import org.json.JSONObject;
+
 /**
  * response class for api responses
  */
 public class Response {
+
+    public static Response ok(int code,String body){
+        return new Response(code,body);
+    }
+
+    public static Response error(int code,String message){
+        return new Response(code,message);
+    }
 
     private Error error;
     private final String body;
@@ -26,7 +36,12 @@ public class Response {
     }
 
     private String getMessage(String body){
-        return body;
+        try {
+            JSONObject jsonObject = new JSONObject(body);
+            return jsonObject.getString("message");
+        } catch (Exception e){
+            return body;
+        }
     }
 
     public Error getError() {
