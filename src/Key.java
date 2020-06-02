@@ -1,3 +1,5 @@
+import org.json.JSONObject;
+
 public class Key {
 
     private String type;
@@ -16,38 +18,46 @@ public class Key {
         return type;
     }
 
+    @Override
+    public String toString() {
+        JSONObject object = new JSONObject();
+        object.put("name", name);
+        object.put("namespace", namespace);
+        object.put("type", type);
+        return object.toString();
+    }
+
     public static class KeyBuilder {
-        public static KeyBuilder newKey(){
+        public static KeyBuilder newKey() {
             return new KeyBuilder();
         }
 
         private final Key key;
 
-        private KeyBuilder(){
+        private KeyBuilder() {
             key = new Key();
         }
 
-        public KeyBuilder setType(String type){
+        public KeyBuilder setType(String type) {
             key.type = type;
             return this;
         }
 
-        public KeyBuilder setNamespace(String namespace){
+        public KeyBuilder setNamespace(String namespace) {
             key.namespace = namespace;
             return this;
         }
 
-        public KeyBuilder setName(String name){
+        public KeyBuilder setName(String name) {
             key.name = name;
             return this;
         }
 
-        public Key get(){
+        public Key get() {
             return key;
         }
 
     }
-
 
 
 }
