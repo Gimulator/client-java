@@ -4,13 +4,24 @@ public class Key {
     private String namespace;
     private String name;
 
+    public String getName() {
+        return name;
+    }
+
+    public String getNamespace() {
+        return namespace;
+    }
+
+    public String getType() {
+        return type;
+    }
 
     public static class KeyBuilder {
         public static KeyBuilder newKey(){
             return new KeyBuilder();
         }
 
-        private Key key;
+        private final Key key;
 
         private KeyBuilder(){
             key = new Key();
