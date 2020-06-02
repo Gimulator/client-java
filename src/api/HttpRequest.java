@@ -16,7 +16,7 @@ public class HttpRequest {
 
     public static final int HTTP_TIMEOUT = 10 * 1000;
 
-    private String url;
+    private final String url;
 
     private final Map<String,String> headers = new HashMap<>();
     private final Map<String,Object> params = new HashMap<>();
