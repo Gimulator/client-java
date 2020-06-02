@@ -21,6 +21,10 @@ public class HttpRequest {
     private final Map<String,String> headers = new HashMap<>();
     private final Map<String,Object> params = new HashMap<>();
 
+    public HttpRequest(String url){
+        this.url = url;
+    }
+
     public void addHeader(String key,String value){
         headers.put(key,value);
     }
@@ -42,6 +46,8 @@ public class HttpRequest {
             connection.setConnectTimeout(HTTP_TIMEOUT);
             connection.setReadTimeout(HTTP_TIMEOUT);
 
+            cleanUpHeaders();
+
             for (Map.Entry<String,String> entry : headers.entrySet()){
                 connection.addRequestProperty(entry.getKey(),entry.getValue());
             }
@@ -52,6 +58,8 @@ public class HttpRequest {
             }
 
             CookieManager.getInstance().load(connection);
+
+            System.out.println("json data: " + jsonObject.toString());
 
             connection.getOutputStream().write(jsonObject.toString().getBytes());
 
@@ -76,6 +84,13 @@ public class HttpRequest {
             return Response.error(-1,"Unknown http error");
 
         }
+    }
+
+    private void cleanUpHeaders() {
+        if (headers.containsKey("Content-type")){
+            headers.remove("Content-type");
+        }
+        headers.put("Content-type","Application/json");
     }
 
     private String readFromStream(InputStream inputStream) throws IOException {
