@@ -43,6 +43,7 @@ public class ClientImp implements Client{
                 observer.onObserved(object);
             }
         });
+        websocket.start();
     }
 
     private void register() throws GimulatorException {
