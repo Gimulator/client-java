@@ -1,6 +1,12 @@
 import api.HttpRequest;
 import api.Response;
+import model.GimulatorObject;
+import model.Key;
+import websocket.WebSocketListener;
+import websocket.WebsocketImp;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 public class ClientImp implements Client{
@@ -20,6 +26,23 @@ public class ClientImp implements Client{
         this.observer = observer;
 
         register();
+
+        try {
+            connectWebSocket();
+        } catch (MalformedURLException | URISyntaxException e) {
+            e.printStackTrace();
+            System.out.println("WebSocket connection failed");
+        }
+    }
+
+    private void connectWebSocket() throws MalformedURLException, URISyntaxException {
+        String url = getUrl(SOCKET);
+        WebsocketImp websocket = new WebsocketImp(url, new WebSocketListener() {
+            @Override
+            public void onReceive(GimulatorObject object) {
+                observer.onObserved(object);
+            }
+        });
     }
 
     private void register() throws GimulatorException {

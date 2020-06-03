@@ -1,3 +1,6 @@
+import model.GimulatorObject;
+import model.Key;
+
 import java.util.List;
 
 public interface Client {

@@ -1,6 +1,7 @@
 package api;
 
 import java.net.HttpURLConnection;
+import java.util.HashMap;
 
 public class CookieManager {
     private static final CookieManager instance = new CookieManager();
@@ -27,4 +28,7 @@ public class CookieManager {
         connection.addRequestProperty("Cookie",cookie);
     }
 
+    public void appendToMap(HashMap<String, String> headers) {
+        headers.put("Cookie",cookie);
+    }
 }
