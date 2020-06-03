@@ -9,7 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.List;
 
-public class ClientImp implements Client{
+public class ClientImpl implements Client{
     public static final String GET = "get";
     public static final String DELETE = "delete";
     public static final String FIND = "find";
@@ -22,7 +22,7 @@ public class ClientImp implements Client{
     private final String host = System.getenv("GIMULATOR_HOST");
     private final GimulatorObserver observer;
 
-    public ClientImp(GimulatorObserver observer){
+    public ClientImpl(GimulatorObserver observer){
         this.observer = observer;
 
         register();
