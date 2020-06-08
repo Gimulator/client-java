@@ -2,10 +2,10 @@
 
 First you need to clone project into a directory and then you need to install libraries that we are using in java client.
 
-* [org.json]()
-* [websocket]()
-* [slf4j simple]()
-* [slf4j api]()
+* [org.json](https://github.com/stleary/JSON-java)
+* [websocket](https://github.com/TooTallNate/Java-WebSocket)
+* [slf4j simple](https://repo1.maven.org/maven2/org/slf4j/slf4j-simple/1.7.9/)
+* [slf4j api](https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.9/)
 
 # Using java client
 
