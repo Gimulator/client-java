@@ -1,5 +1,6 @@
 package api;
 
+import model.Key;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -18,21 +19,26 @@ public class HttpRequest {
 
     private final String url;
 
-    private final Map<String,String> headers = new HashMap<>();
-    private final Map<String,Object> params = new HashMap<>();
+    private final Map<String, String> headers = new HashMap<>();
+    private final Map<String, Object> params = new HashMap<>();
 
-    public HttpRequest(String url){
+    private Key key;
+
+    public HttpRequest(String url) {
         this.url = url;
     }
 
-    public void addHeader(String key,String value){
-        headers.put(key,value);
+    public void setKey(Key key) {
+        this.key = key;
     }
 
-    public void addPost(String key,Object value){
-        params.put(key,value);
+    public void addHeader(String key, String value) {
+        headers.put(key, value);
     }
 
+    public void addPost(String key, Object value) {
+        params.put(key, value);
+    }
 
 
     public Response send() {
@@ -48,14 +54,17 @@ public class HttpRequest {
 
             cleanUpHeaders();
 
-            for (Map.Entry<String,String> entry : headers.entrySet()){
-                connection.addRequestProperty(entry.getKey(),entry.getValue());
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                connection.addRequestProperty(entry.getKey(), entry.getValue());
             }
 
             JSONObject jsonObject = new JSONObject();
-            for (Map.Entry<String,Object> entry: params.entrySet()){
+            for (Map.Entry<String, Object> entry : params.entrySet()) {
                 jsonObject.put(entry.getKey(), entry.getValue().toString());
             }
+
+            if (key != null)
+                jsonObject.put("Key", key.toJson());
 
             CookieManager.getInstance().load(connection);
 
@@ -66,7 +75,7 @@ public class HttpRequest {
 
             InputStream in;
 
-            if (connection.getResponseCode()>=HttpURLConnection.HTTP_BAD_REQUEST){
+            if (connection.getResponseCode() >= HttpURLConnection.HTTP_BAD_REQUEST) {
                 in = connection.getErrorStream();
             } else {
                 in = connection.getInputStream();
@@ -77,18 +86,18 @@ public class HttpRequest {
             CookieManager.getInstance().save(connection);
 
 
-            return Response.ok(connection.getResponseCode(),response);
+            return Response.ok(connection.getResponseCode(), response);
         } catch (IOException e) {
             e.printStackTrace();
 
-            return Response.error(-1,"Unknown http error");
+            return Response.error(-1, "Unknown http error");
 
         }
     }
 
     private void cleanUpHeaders() {
         headers.remove("Content-type");
-        headers.put("Content-type","Application/json");
+        headers.put("Content-type", "Application/json");
     }
 
     private String readFromStream(InputStream inputStream) throws IOException {

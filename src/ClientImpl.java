@@ -25,6 +25,9 @@ public class ClientImpl implements Client{
     public ClientImpl(GimulatorObserver observer){
         this.observer = observer;
 
+        System.out.println(owner);
+        System.out.println(host);
+
         register();
 
         try {
@@ -64,7 +67,7 @@ public class ClientImpl implements Client{
 
         HttpRequest request = new HttpRequest(url);
         request.addPost("Owner",owner);
-        request.addPost("key",key);
+        request.setKey(key);
 
         Response response = request.send();
 
@@ -80,7 +83,7 @@ public class ClientImpl implements Client{
 
         HttpRequest request = new HttpRequest(url);
         request.addPost("Owner",owner);
-        request.addPost("key",key);
+        request.setKey(key);
 
         Response response = request.send();
 
@@ -91,12 +94,13 @@ public class ClientImpl implements Client{
     }
 
     @Override
-    public void set(Key key) throws GimulatorException {
+    public void set(Key key,String value) throws GimulatorException {
         String url = getUrl(SET);
 
         HttpRequest request = new HttpRequest(url);
         request.addPost("Owner",owner);
-        request.addPost("key",key);
+        request.setKey(key);
+        request.addPost("Value",value);
 
         Response response = request.send();
 
@@ -111,7 +115,7 @@ public class ClientImpl implements Client{
 
         HttpRequest request = new HttpRequest(url);
         request.addPost("Owner",owner);
-        request.addPost("key",key);
+        request.setKey(key);
 
         Response response = request.send();
 
@@ -126,7 +130,7 @@ public class ClientImpl implements Client{
 
         HttpRequest request = new HttpRequest(url);
         request.addPost("Owner",owner);
-        request.addPost("key",key);
+        request.setKey(key);
 
         Response response = request.send();
 

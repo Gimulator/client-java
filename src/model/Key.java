@@ -29,6 +29,14 @@ public class Key {
         return object.toString();
     }
 
+    public JSONObject toJson() {
+        JSONObject object = new JSONObject();
+        object.put("name", name);
+        object.put("namespace", namespace);
+        object.put("type", type);
+        return object;
+    }
+
     public static class KeyBuilder {
         public static KeyBuilder newKey() {
             return new KeyBuilder();
