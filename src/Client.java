@@ -8,7 +8,7 @@ public interface Client {
 
     List<GimulatorObject> find(Key key) throws GimulatorException;
 
-    void set(Key key) throws GimulatorException;
+    void set(Key key,String value) throws GimulatorException;
 
     void delete(Key key) throws GimulatorException;
 
