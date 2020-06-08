@@ -39,12 +39,12 @@ public class GimulatorObject {
     public static GimulatorObject parse(String json) {
         GimulatorObject object = new GimulatorObject();
         JSONObject jsonObject = new JSONObject(json);
-        object.owner = jsonObject.getString("owner");
-        object.value = jsonObject.getString("value");
+        object.owner = jsonObject.getString("Owner");
+        object.value = jsonObject.getString("Value");
         object.key = Key.KeyBuilder.newKey()
-                .setName(jsonObject.getJSONObject("key").getString("name"))
-                .setNamespace(jsonObject.getJSONObject("key").getString("namespace"))
-                .setType(jsonObject.getJSONObject("key").getString("type"))
+                .setName(jsonObject.getJSONObject("Key").getString("Name"))
+                .setNamespace(jsonObject.getJSONObject("Key").getString("Namespace"))
+                .setType(jsonObject.getJSONObject("Key").getString("Type"))
                 .get();
 
         return object;
